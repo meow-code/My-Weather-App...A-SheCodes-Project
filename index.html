@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>☂ Brenda's Simple Weather App ☂</title>
+    <link rel="stylesheet" href="src/styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css"
+      integrity="sha384-VCmXjywReHh4PwowAiWNagnWcLhlEJLA5buUprzK8rxFgeH0kww/aWY76TfkUoSX"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://kit.fontawesome.com/7c75efcda3.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="card weather">
+        <div class="row one">
+          <div class="col-8 current-location">
+            <h1 class="currently-in">Currently In</h1>
+
+            <h2 class="location">
+              <span id="current-city"></span><span id="current-country"></span>
+              <button id="set-current">
+                <i class="fas fa-map-marker-alt"></i>
+              </button>
+            </h2>
+
+            <p id="date-current" class="date-time"></p>
+            <form id="search-city">
+              <input
+                type="text"
+                class="form-control mr-0"
+                placeholder="Search City or Zip Code 🔎"
+                id="search-city-input"
+              />
+            </form>
+            <p class="five-day-title">5 Day Forecast</p>
+          </div>
+          <div class="col-4 current col-centered">
+            <div class="row">
+              <div class="col-8 current-temp">
+                <p id="current-temp" class="current-temp"></p>
+              </div>
+              <div class="col cf-toggle">
+                <a href="#" id="celsius-link">°C</a>
+                <br />
+                <a href="#" id="fahrenheit-link">°F</a>
+              </div>
+            </div>
+            <p id="current-condition" class="current-condition"></p>
+            <p class="current-emoji">
+              <i class="fas fa-wind"></i>
+            </p>
+            <p class="current-stats">
+              Humidity: <span id="current-humidity">5</span>%
+            </p>
+            <p class="current-stats">
+              Wind: <span id="current-wind">5</span>
+              <span id="wind-units"></span>
+            </p>
+          </div>
+        </div>
+        <div class="row five-day-icons">
+          <div class="col p-0" style="max-width: 110px">
+            <div class="card forecast">
+              <div class="card-body p-0">
+                <ul>
+                  <li class="blank">.</li>
+                  <li class="circle-day-row">MON</li>
+                  <li class="weatherEmoji">
+                    <i class="fas fa-sun"></i>
+                  </li>
+                  <li class="circle-temp-row">98°</li>
+                  <li class="blank">.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col p-0" style="max-width: 110px">
+            <div class="card forecast">
+              <div class="card-body p-0">
+                <ul>
+                  <li class="blank">.</li>
+                  <li class="circle-day-row">TUE</li>
+                  <li class="weatherEmoji">
+                    <i class="fas fa-cloud-sun"></i>
+                  </li>
+                  <li class="circle-temp-row">97°</li>
+                  <li class="blank">.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col p-0" style="max-width: 110px">
+            <div class="card forecast">
+              <div class="card-body p-0">
+                <ul>
+                  <li class="blank">.</li>
+                  <li class="circle-day-row">WED</li>
+                  <li class="weatherEmoji">
+                    <i class="fas fa-cloud-sun-rain"></i>
+                  </li>
+                  <li class="circle-temp-row">96°</li>
+                  <li class="blank">.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col p-0" style="max-width: 110px">
+            <div class="card forecast">
+              <div class="card-body p-0">
+                <ul>
+                  <li class="blank">.</li>
+                  <li class="circle-day-row">THU</li>
+                  <li class="weatherEmoji">
+                    <i class="far fa-snowflake"></i>
+                  </li>
+                  <li class="circle-temp-row">32°</li>
+                  <li class="blank">.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col p-0" style="max-width: 110px">
+            <div class="card forecast">
+              <div class="card-body p-0">
+                <ul>
+                  <li class="blank">.</li>
+                  <li class="circle-day-row">FRI</li>
+                  <li class="weatherEmoji">
+                    <i class="fas fa-rainbow"></i>
+                  </li>
+                  <li class="circle-temp-row">75°</li>
+                  <li class="blank">.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer>
+        lovingly coded by Brenda Shakley
+        <i class="fas fa-cat"></i>
+      </footer>
+    </div>
+    <script src="src/index.js"></script>
+  </body>
+</html>
