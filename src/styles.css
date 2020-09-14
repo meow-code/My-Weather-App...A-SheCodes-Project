@@ -126,7 +126,7 @@ div.cf-toggle {
   color: #50d890;
 }
 
-a:hover {
+#temp-toggle:hover {
   text-decoration: none;
   color: #4f98ca;
 }
@@ -169,10 +169,29 @@ ul {
 }
 
 footer {
+  padding-top: 7px;
+}
+#signature {
   font-family: "Sacramento", cursive;
   color: #50d890;
-  font-size: 30px;
+  font-size: 20px;
+  margin: block;
+  text-align: right;
 }
 .fas.fa-cat {
   font-size: 20px;
+}
+#open-source {
+  font-size: 12px;
+  color: #15164d;
+  font-family: "Noto Sans", sans-serif;
+  line-height: 20px;
+}
+
+#link-backs:link {
+  color: #4f98ca;
+}
+
+#link-backs:hover {
+  color: #50d890;
 }
