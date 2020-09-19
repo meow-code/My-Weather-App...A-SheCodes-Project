@@ -18,6 +18,12 @@ function displayData(response) {
     response.data.main.humidity
   );
   document.querySelector("#wind-units").innerHTML = " mph";
+  let emojiElement = document.querySelector("#current-emoji");
+  emojiElement.setAttribute(
+    "src",
+    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+  );
+  emojiElement.setAttribute("alt", response.data.weather[0].description);
 }
 
 // Error Message
