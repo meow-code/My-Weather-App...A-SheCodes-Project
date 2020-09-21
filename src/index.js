@@ -1,29 +1,33 @@
 // Update HTML
 let apiKey = "dd01abb9e9165de13b0e0f54a8ec984b";
 
+let units = "imperial";
+let latLocation = null;
+let longLocation = null;
+
 function displayData(response) {
+  console.log(response);
   document.querySelector("#current-temp").innerHTML = Math.round(
-    response.data.main.temp
+    response.data.current.temp
   );
   document.querySelector("#current-condition").innerHTML =
-    response.data.weather[0].main;
-  document.querySelector("#current-city").innerHTML = `${response.data.name}`;
-  document.querySelector(
-    "#current-country"
-  ).innerHTML = `, ${response.data.sys.country}`;
+    response.data.current.weather[0].main;
   document.querySelector("#current-wind").innerHTML = Math.round(
-    response.data.wind.speed
+    response.data.current.wind_speed
   );
   document.querySelector("#current-humidity").innerHTML = Math.round(
-    response.data.main.humidity
+    response.data.current.humidity
   );
   document.querySelector("#wind-units").innerHTML = " mph";
   let emojiElement = document.querySelector("#current-emoji");
   emojiElement.setAttribute(
     "src",
-    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+    `http://openweathermap.org/img/wn/${response.data.current.weather[0].icon}@2x.png`
   );
-  emojiElement.setAttribute("alt", response.data.weather[0].description);
+  emojiElement.setAttribute(
+    "alt",
+    response.data.current.weather[0].description
+  );
 }
 
 // Error Message
@@ -33,10 +37,34 @@ function errorFunction(error) {
   );
 }
 
+function useLocation(latLocation, longLocation) {
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${latLocation}&lon=${longLocation}&
+  exclude=hourly,daily&appid=${apiKey}&units=${units}`;
+  axios.get(apiUrl).then(displayData);
+}
+
+//get the lat and long from searched city
+function retrieveCoordinates(response) {
+  console.log(response);
+  document.querySelector("#current-city").innerHTML = `${response.data.name}`;
+  document.querySelector(
+    "#current-country"
+  ).innerHTML = `, ${response.data.sys.country}`;
+  longLocation = response.data.coord.lon;
+  latLocation = response.data.coord.lat;
+  useLocation(latLocation, longLocation);
+}
+
+//pull name via coordinates
+function nameByCoordinates(latLocation, longLocation) {
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latLocation}&lon=${longLocation}&appid=${apiKey}&units=${units}`;
+  axios.get(apiUrl).then(retrieveCoordinates);
+}
+
 // pull Location datA
-function searchCity(newLocation, units) {
+function searchCity(newLocation) {
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${newLocation}&appid=${apiKey}&units=${units}`;
-  axios.get(apiUrl).then(displayData).catch(errorFunction);
+  axios.get(apiUrl).then(retrieveCoordinates).catch(errorFunction);
 }
 
 // Search bar Entry
@@ -46,7 +74,7 @@ function logCity(event) {
     "<span style='color: #4f98ca; text-decoration: none'>°F</span>";
   document.querySelector("#celsius-link").innerHTML =
     "<span style='color: #50d890; text-decoration: underline'>°C</span>";
-  searchCity(document.querySelector("#search-city-input").value, "imperial");
+  searchCity(document.querySelector("#search-city-input").value);
 }
 
 // search event listener
@@ -54,9 +82,9 @@ document.querySelector("#search-city").addEventListener("submit", logCity);
 
 // set current location
 function showPosition(position) {
-  //event.preventDefault();
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${apiKey}&units=imperial`;
-  axios.get(apiUrl).then(displayData);
+  longLocation = position.coords.longitude;
+  latLocation = position.coords.latitude;
+  nameByCoordinates(latLocation, longLocation);
 }
 
 function setGeolocation(event) {
@@ -123,7 +151,8 @@ function toggleFahrenheit(event) {
   document.querySelector("#celsius-link").innerHTML =
     "<span style='color: #50d890; text-decoration: underline'>°C</span>";
   document.querySelector("#wind-units").innerHTML = " mph";
-  searchCity(document.querySelector("#current-city").innerHTML, "imperial");
+  units = "imperial";
+  searchCity(document.querySelector("#current-city").innerHTML);
 }
 
 document
@@ -138,7 +167,8 @@ function toggleCelsius(event) {
   document.querySelector("#fahrenheit-link").innerHTML =
     "<span style='color: #50d890; text-decoration: underline'>°F</span>";
   document.querySelector("#wind-units").innerHTML = " km/h";
-  searchCity(document.querySelector("#current-city").innerHTML, "metric");
+  units = "metric";
+  searchCity(document.querySelector("#current-city").innerHTML, units);
 }
 
 document
@@ -149,4 +179,4 @@ document.querySelector("#fahrenheit-link").innerHTML =
 document.querySelector("#celsius-link").innerHTML =
   "<span style='color: #50d890; text-decoration: underline'>°C</span>";
 
-searchCity("white hall", "imperial");
+searchCity("baltimore");
