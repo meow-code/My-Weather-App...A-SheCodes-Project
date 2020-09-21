@@ -6,7 +6,6 @@ let latLocation = null;
 let longLocation = null;
 
 function displayData(response) {
-  console.log(response);
   document.querySelector("#current-temp").innerHTML = Math.round(
     response.data.current.temp
   );
@@ -28,6 +27,38 @@ function displayData(response) {
     "alt",
     response.data.current.weather[0].description
   );
+  let dayForecast = new Date(response.data.daily[1].dt * 1000);
+  let days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+  //console.log(days[new Date(forecast.dt.getDay()]);
+  let forecastElement = document.querySelector("#forecast");
+  forecastElement.innerHTML = null;
+  let forecast = null;
+
+  for (let index = 1; index < 6; index++) {
+    forecast = response.data.daily[index];
+    forecastElement.innerHTML += `
+  <div class="col p-0" style="max-width: 110px">
+  <div class="card forecast">
+    <div class="card-body p-0">
+      <ul>
+        <li class="blank">.</li>
+        <li class="circle-day-row">${
+          days[new Date(forecast.dt * 1000).getDay()]
+        }</li>
+        <li class="weatherEmoji">
+          <img height="50" src="http://openweathermap.org/img/wn/${
+            forecast.weather[0].icon
+          }@2x.png"></img>
+        </li>
+        <li class="circle-temp-row"><strong>${Math.round(
+          forecast.temp.max
+        )}°</strong>/ ${Math.round(forecast.temp.min)}°</li>
+        <li class="blank">.</li>
+      </ul>
+    </div>
+  </div>
+</div>`;
+  }
 }
 
 // Error Message
@@ -45,7 +76,6 @@ function useLocation(latLocation, longLocation) {
 
 //get the lat and long from searched city
 function retrieveCoordinates(response) {
-  console.log(response);
   document.querySelector("#current-city").innerHTML = `${response.data.name}`;
   document.querySelector(
     "#current-country"
@@ -67,13 +97,27 @@ function searchCity(newLocation) {
   axios.get(apiUrl).then(retrieveCoordinates).catch(errorFunction);
 }
 
-// Search bar Entry
-function logCity(event) {
-  event.preventDefault();
+function goFehrenheit() {
   document.querySelector("#fahrenheit-link").innerHTML =
     "<span style='color: #4f98ca; text-decoration: none'>°F</span>";
   document.querySelector("#celsius-link").innerHTML =
-    "<span style='color: #50d890; text-decoration: underline'>°C</span>";
+    "<span style='color: #ec6e4c; text-decoration: underline'>°C</span>";
+  units = "imperial";
+}
+
+function goCelsius() {
+  document.querySelector("#celsius-link").innerHTML =
+    "<span style='color: #4f98ca; text-decoration: none'>°C</span>";
+  document.querySelector("#fahrenheit-link").innerHTML =
+    "<span style='color: #ec6e4c; text-decoration: underline'>°F</span>";
+  document.querySelector("#wind-units").innerHTML = " km/h";
+  units = "metric";
+}
+
+// Search bar Entry
+function logCity(event) {
+  event.preventDefault();
+  goFehrenheit();
   searchCity(document.querySelector("#search-city-input").value);
 }
 
@@ -89,10 +133,7 @@ function showPosition(position) {
 
 function setGeolocation(event) {
   event.preventDefault();
-  document.querySelector("#fahrenheit-link").innerHTML =
-    "<span style='color: #4f98ca; text-decoration: none'>°F</span>";
-  document.querySelector("#celsius-link").innerHTML =
-    "<span style='color: #50d890; text-decoration: underline'>°C</span>";
+  goFehrenheit();
   navigator.geolocation.getCurrentPosition(showPosition);
 }
 
@@ -145,13 +186,7 @@ document.querySelector("#date-current").innerHTML = `${days[now.getDay()]}, ${
 
 // Toggle Fehrenheit
 function toggleFahrenheit(event) {
-  //event.preventDefault();
-  document.querySelector("#fahrenheit-link").innerHTML =
-    "<span style='color: #4f98ca; text-decoration: none'>°F</span>";
-  document.querySelector("#celsius-link").innerHTML =
-    "<span style='color: #50d890; text-decoration: underline'>°C</span>";
-  document.querySelector("#wind-units").innerHTML = " mph";
-  units = "imperial";
+  goFehrenheit();
   searchCity(document.querySelector("#current-city").innerHTML);
 }
 
@@ -162,21 +197,13 @@ document
 // Toggle Celsius
 function toggleCelsius(event) {
   event.preventDefault();
-  document.querySelector("#celsius-link").innerHTML =
-    "<span style='color: #4f98ca; text-decoration: none'>°C</span>";
-  document.querySelector("#fahrenheit-link").innerHTML =
-    "<span style='color: #50d890; text-decoration: underline'>°F</span>";
-  document.querySelector("#wind-units").innerHTML = " km/h";
-  units = "metric";
+  goCelsius();
   searchCity(document.querySelector("#current-city").innerHTML, units);
 }
 
 document
   .querySelector("#celsius-link")
   .addEventListener("click", toggleCelsius);
-document.querySelector("#fahrenheit-link").innerHTML =
-  "<span style='color: #4f98ca; text-decoration: none'>°F</span>";
-document.querySelector("#celsius-link").innerHTML =
-  "<span style='color: #50d890; text-decoration: underline'>°C</span>";
 
+goFehrenheit;
 searchCity("baltimore");

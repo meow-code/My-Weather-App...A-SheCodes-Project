@@ -85,6 +85,7 @@ img {
   padding: 0;
   display: block;
   margin: 0 auto;
+  object-fit: cover;
 }
 
 p.current-stats {
@@ -112,7 +113,7 @@ div.cf-toggle {
 }
 
 #celsius-link {
-  color: #50d890;
+  color: #ec6e4c;
 }
 
 #fahrenheit-link:hover {
@@ -122,7 +123,7 @@ div.cf-toggle {
 
 #celsius-link:hover {
   text-decoration: none;
-  color: #50d890;
+  color: #ec6e4c;
 }
 .blank {
   line-height: 5px;
@@ -134,7 +135,7 @@ div.row.five-day-icons {
 }
 div.card.forecast {
   padding: 0;
-  background-color: #effffb;
+  background-color: #dee3e2;
   border: none;
 }
 ul {
@@ -146,19 +147,7 @@ ul {
   max-width: 100px;
   min-height: 100px;
   font-weight: bold;
-  background-color: #effffb;
-}
-
-.circle-day-row,
-.circle-temp-row {
-  color: #4f98ca;
-  line-height: 25px;
-  font-size: 21px;
-}
-.weatherEmoji {
-  font-size: 30px;
-  line-height: 30px;
-  color: #50d890;
+  background-color: #dee3e2;
 }
 
 footer {
@@ -166,7 +155,7 @@ footer {
 }
 #signature {
   font-family: "Sacramento", cursive;
-  color: #50d890;
+  color: #ec6e4c;
   font-size: 23px;
   margin: block;
   text-align: right;
@@ -188,5 +177,5 @@ footer {
 }
 
 .link-backs:hover {
-  color: #50d890;
+  color: #ec6e4c;
 }
