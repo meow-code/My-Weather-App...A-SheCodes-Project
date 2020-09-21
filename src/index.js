@@ -29,7 +29,6 @@ function displayData(response) {
   );
   let dayForecast = new Date(response.data.daily[1].dt * 1000);
   let days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
-  //console.log(days[new Date(forecast.dt.getDay()]);
   let forecastElement = document.querySelector("#forecast");
   forecastElement.innerHTML = null;
   let forecast = null;
@@ -99,7 +98,7 @@ function searchCity(newLocation) {
 
 function goFehrenheit() {
   document.querySelector("#fahrenheit-link").innerHTML =
-    "<span style='color: #4f98ca; text-decoration: none'>°F</span>";
+    "<strong style='color: #4f98ca; text-decoration: none'>°F</strong>";
   document.querySelector("#celsius-link").innerHTML =
     "<span style='color: #ec6e4c; text-decoration: underline'>°C</span>";
   units = "imperial";
@@ -107,7 +106,7 @@ function goFehrenheit() {
 
 function goCelsius() {
   document.querySelector("#celsius-link").innerHTML =
-    "<span style='color: #4f98ca; text-decoration: none'>°C</span>";
+    "<strong style='color: #4f98ca; text-decoration: none'>°C</strong>";
   document.querySelector("#fahrenheit-link").innerHTML =
     "<span style='color: #ec6e4c; text-decoration: underline'>°F</span>";
   document.querySelector("#wind-units").innerHTML = " km/h";
@@ -205,5 +204,5 @@ document
   .querySelector("#celsius-link")
   .addEventListener("click", toggleCelsius);
 
-goFehrenheit;
+goFehrenheit();
 searchCity("baltimore");

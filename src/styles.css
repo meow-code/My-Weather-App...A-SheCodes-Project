@@ -110,6 +110,7 @@ div.cf-toggle {
 #fahrenheit-link {
   font-size: 15px;
   color: #4f98ca;
+  text-decoration: none;
 }
 
 #celsius-link {
@@ -147,7 +148,7 @@ ul {
   max-width: 100px;
   min-height: 100px;
   font-weight: bold;
-  background-color: #dee3e2;
+  background-color: ##dee3e2;
 }
 
 footer {
