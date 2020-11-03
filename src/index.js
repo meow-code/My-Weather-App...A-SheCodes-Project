@@ -41,17 +41,15 @@ function displayData(response) {
     <div class="card-body p-0">
       <ul>
         <li class="blank">.</li>
-        <li class="circle-day-row">${
-          days[new Date(forecast.dt * 1000).getDay()]
-        }</li>
+        <li class="circle-day-row">${days[new Date(forecast.dt * 1000).getDay()]
+      }</li>
         <li class="weatherEmoji">
-          <img height="50" src="http://openweathermap.org/img/wn/${
-            forecast.weather[0].icon
-          }@2x.png"></img>
+          <img height="50" src="http://openweathermap.org/img/wn/${forecast.weather[0].icon
+      }@2x.png"></img>
         </li>
         <li class="circle-temp-row"><strong>${Math.round(
-          forecast.temp.max
-        )}°</strong>/ ${Math.round(forecast.temp.min)}°</li>
+        forecast.temp.max
+      )}°</strong>/ ${Math.round(forecast.temp.min)}°</li>
         <li class="blank">.</li>
       </ul>
     </div>
